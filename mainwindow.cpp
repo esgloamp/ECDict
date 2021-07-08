@@ -5,6 +5,8 @@
 #include <QMessageBox>
 #include <QStyleFactory>
 #include <QKeyEvent>
+#include <QGraphicsBlurEffect>
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
     connect(ui->comboBox, SIGNAL(enter_pressed()),
@@ -13,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 //    connect(ui->comboBox, SIGNAL(editTextChanged(const QString &)),
 //            this, SLOT(updates_tips(const QString &)));
     open_dict();
-    test();
+//    test();
 }
 
 MainWindow::~MainWindow() {
@@ -28,7 +30,7 @@ void MainWindow::open_dict() {
     QString path = QCoreApplication::applicationDirPath() + "/stardict.db";
     dict.setDatabaseName(path);
     if (!dict.open()) {
-        QMessageBox::warning(this, "warning", dict.lastError().text(), QMessageBox::Ok);
+        QMessageBox::warning(this, "Warning", dict.lastError().text(), QMessageBox::Ok);
         exit(-1);
     }
     que = new QSqlQuery(dict);
@@ -123,7 +125,9 @@ inline void MainWindow::set_exchange(const QString &s) {
         if (i.startsWith("0:")) {
             t += i.replace("0:", "词根:");
         }
-        t += "\n";
+        if (i != "") {
+            t += "\n";
+        }
         // TODO 待解决
 //        if (i.startsWith("1:")) {}
     }
@@ -137,10 +141,13 @@ bool MainWindow::query(const QString &t) {
     return false;
 }
 
-
 void MainWindow::enter_event() {
     QString w = ui->comboBox->currentText();
-    if (que->exec(QString("select * from stardict where word = '%1'").arg(w))) {
+    QString t = "select * from stardict where word = '%1'";
+    t = t.arg(w);
+    que->prepare(t);
+    qDebug() << que->executedQuery();
+    if (que->exec(t)) {
         que->next();
         set_word(que->value(DICT_POS::WORD).toString());
         set_phonetic(que->value(DICT_POS::PHONETIC).toString());

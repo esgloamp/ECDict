@@ -2,18 +2,40 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>389</width>
-    <height>691</height>
+    <width>784</width>
+    <height>736</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>ECDict</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="res/res.qrc">
+    <normaloff>:/icon.png</normaloff>:/icon.png</iconset>
+  </property>
+  <property name="windowOpacity">
+   <double>0.950000000000000</double>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>24</width>
+    <height>24</height>
+   </size>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="ComboBox" name="comboBox">
@@ -32,11 +54,14 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>16</pointsize>
+        <pointsize>22</pointsize>
        </font>
       </property>
       <property name="cursor">
        <cursorShape>IBeamCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <property name="editable">
        <bool>true</bool>
@@ -65,6 +90,9 @@
         <property name="alignment">
          <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
         </property>
+        <property name="textInteractionFlags">
+         <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+        </property>
        </widget>
       </item>
       <item row="0" column="1">
@@ -76,10 +104,13 @@
          </font>
         </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string>[phonetic]</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
         </property>
        </widget>
       </item>
@@ -93,18 +124,16 @@
         <pointsize>13</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">border: 1px solid gray;
+border-radius:3px;
+border-color:#B9B9B9</string>
+      </property>
       <property name="text">
-       <string/>
+       <string>高考 雅思 ...</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="Line" name="line_2">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>
@@ -117,15 +146,30 @@
        </font>
       </property>
       <property name="text">
-       <string/>
+       <string>words</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+      </property>
+      <property name="textInteractionFlags">
+       <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QScrollArea" name="scrollArea">
+      <property name="styleSheet">
+       <string notr="true">QScrollArea {
+	border:0px;
+}</string>
+      </property>
       <property name="widgetResizable">
        <bool>true</bool>
       </property>
@@ -134,15 +178,15 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>369</width>
-         <height>363</height>
+         <width>766</width>
+         <height>404</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QLabel" name="translation">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -151,7 +195,7 @@
            <string>释义(中)</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+           <set>Qt::AlignBottom|Qt::AlignHCenter</set>
           </property>
          </widget>
         </item>
@@ -169,6 +213,10 @@
             <pointsize>12</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">border: 1px solid #b9b9b9;
+border-radius:3px;</string>
+          </property>
           <property name="text">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;中文释义&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
@@ -178,19 +226,15 @@
           <property name="wordWrap">
            <bool>true</bool>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="Line" name="line">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+          <property name="textInteractionFlags">
+           <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QLabel" name="definition">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -199,7 +243,7 @@
            <string>释义(英)</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+           <set>Qt::AlignBottom|Qt::AlignHCenter</set>
           </property>
          </widget>
         </item>
@@ -211,6 +255,10 @@
             <pointsize>12</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">border: 1px solid #b9b9b9;
+border-radius:3px;</string>
+          </property>
           <property name="text">
            <string>英文释义</string>
           </property>
@@ -218,7 +266,7 @@
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
           </property>
           <property name="textInteractionFlags">
-           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+           <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
           </property>
          </widget>
         </item>
@@ -237,7 +285,7 @@
          </font>
         </property>
         <property name="text">
-         <string/>
+         <string>否</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -285,7 +333,7 @@
          </font>
         </property>
         <property name="text">
-         <string/>
+         <string>无</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -301,7 +349,7 @@
          </font>
         </property>
         <property name="text">
-         <string/>
+         <string>22</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -317,7 +365,7 @@
          </font>
         </property>
         <property name="text">
-         <string/>
+         <string>33</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -365,8 +413,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>389</width>
-     <height>22</height>
+     <width>784</width>
+     <height>23</height>
     </rect>
    </property>
   </widget>
@@ -379,6 +427,8 @@
    <header location="global">combobox.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="res/res.qrc"/>
+ </resources>
  <connections/>
 </ui>
