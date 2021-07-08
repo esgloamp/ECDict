@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>554</width>
-    <height>696</height>
+    <width>583</width>
+    <height>712</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,11 +21,10 @@
     <normaloff>:/icon.png</normaloff>:/icon.png</iconset>
   </property>
   <property name="windowOpacity">
-   <double>0.950000000000000</double>
+   <double>1.000000000000000</double>
   </property>
   <property name="styleSheet">
-   <string notr="true">QTextBrowser{background-color:#f0f0f0;}
-</string>
+   <string notr="true">QTextBrowser{background-color:#f0f0f0;}</string>
   </property>
   <property name="iconSize">
    <size>
@@ -610,7 +609,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>554</width>
+     <width>583</width>
      <height>23</height>
     </rect>
    </property>
