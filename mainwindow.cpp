@@ -143,11 +143,7 @@ bool MainWindow::query(const QString &t) {
 
 void MainWindow::enter_event() {
     QString w = ui->comboBox->currentText();
-    QString t = "select * from stardict where word = '%1'";
-    t = t.arg(w);
-    que->prepare(t);
-    qDebug() << que->executedQuery();
-    if (que->exec(t)) {
+    if (que->exec(QString("SELECT * FROM stardict WHERE word = '%1'").arg(w))) {
         que->next();
         set_word(que->value(DICT_POS::WORD).toString());
         set_phonetic(que->value(DICT_POS::PHONETIC).toString());
