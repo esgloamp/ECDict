@@ -5,16 +5,16 @@
 #include <QMessageBox>
 #include <QStyleFactory>
 #include <QKeyEvent>
-#include <QGraphicsBlurEffect>
+#include <QStyle>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
-    connect(ui->comboBox, SIGNAL(enter_pressed()),
-            this, SLOT(enter_event()));
+    connect(ui->comboBox, SIGNAL(enter_pressed()), this, SLOT(enter_event()));
 
 //    connect(ui->comboBox, SIGNAL(editTextChanged(const QString &)),
 //            this, SLOT(updates_tips(const QString &)));
     open_dict();
+    ui->comboBox->setStyleSheet("border-radius:3px;");
 }
 
 MainWindow::~MainWindow() {
@@ -29,7 +29,10 @@ void MainWindow::open_dict() {
     QString path = QCoreApplication::applicationDirPath() + "/stardict.db";
     dict.setDatabaseName(path);
     if (!dict.open()) {
-        QMessageBox::warning(this, "Warning", dict.lastError().text(), QMessageBox::Ok);
+        QMessageBox::critical(this, "Error",
+                              "Database:" + dict.lastError().databaseText() + ".\nDriver:" + dict.lastError().driverText(),
+                              QMessageBox::Ok);
+
         exit(-1);
     }
     que = new QSqlQuery(dict);
@@ -44,17 +47,17 @@ inline void MainWindow::set_phonetic(const QString &s) {
 }
 
 inline void MainWindow::set_definition(const QString &s) {
-    ui->definition_content->setText(s);
-    ui->definition_content->adjustSize();
+    ui->definition->setText(s);
+    ui->definition->adjustSize();
 }
 
 inline void MainWindow::set_translation(const QString &s) {
-    ui->translation_content->setText(s);
+    ui->translation->setText(s);
 }
 
 inline void MainWindow::set_collins_star(const QString &s) {
-    s != "" ? ui->collins_star_content->setText(s):
-              ui->collins_star_content->setText("无");
+    ui->collins_star_container->setMinimumWidth(s.toInt() * 17);
+    ui->collins_star_container->setMaximumWidth(s.toInt() * 17);
 }
 
 inline void MainWindow::set_oxford_3k(const QString &s) {
@@ -63,29 +66,42 @@ inline void MainWindow::set_oxford_3k(const QString &s) {
 }
 
 inline void MainWindow::set_tag(const QString &s) {
-    QString t = "";
     if (s.contains("ielts")) {
-        t += "雅思 ";
+        ui->tag_ielts->setVisible(true);
+    } else {
+        ui->tag_ielts->setVisible(false);
     }
     if (s.contains("toefl")) {
-        t += "托福";
+        ui->tag_toefl->setVisible(true);
+    } else {
+        ui->tag_toefl->setVisible(false);
     }
     if (s.contains("cet4")) {
-        t += "四级 ";
+        ui->tag_cet4->setVisible(true);
+    } else {
+        ui->tag_cet4->setVisible(false);
     }
     if (s.contains("cet6")) {
-        t += "六级 ";
+        ui->tag_cet6->setVisible(true);
+    } else {
+        ui->tag_cet6->setVisible(false);
     }
     if (s.contains("ky")) {
-        t += "考研 ";
+        ui->tag_ky->setVisible(true);
+    } else {
+        ui->tag_ky->setVisible(false);
     }
     if (s.contains("gk")) {
-        t += "高考 ";
+        ui->tag_gk->setVisible(true);
+    } else {
+        ui->tag_gk->setVisible(false);
     }
     if (s.contains("zk")) {
-        t += "中考";
+        ui->tag_zk->setVisible(true);
+    } else {
+        ui->tag_zk->setVisible(false);
     }
-    ui->tag_content->setText(t);
+//    ui->tag_content->setText(t);
 }
 
 inline void MainWindow::set_bnc(const QString &s) {
@@ -130,7 +146,7 @@ inline void MainWindow::set_exchange(const QString &s) {
         // TODO 待解决
 //        if (i.startsWith("1:")) {}
     }
-    ui->exchange_content->setText(t);
+    ui->exchange_container->setText(t);
 }
 
 bool MainWindow::query(const QString &t) {
@@ -182,5 +198,5 @@ void MainWindow::enter_event() {
 
 
 void MainWindow::test() {
-
+    qDebug() << QString("").toInt();
 }
