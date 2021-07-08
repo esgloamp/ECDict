@@ -25,7 +25,7 @@ MainWindow::~MainWindow() {
 void MainWindow::open_dict() {
     dict = QSqlDatabase::addDatabase("QSQLITE");
     // 必须要绝对路径，不然会找不到表
-    QString path = QCoreApplication::applicationDirPath() + "/stardict.db";
+    QString path = QCoreApplication::applicationDirPath() + "ultimate.db";
     dict.setDatabaseName(path);
     if (!dict.open()) {
         QMessageBox::critical(this, "Error",
