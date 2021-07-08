@@ -15,7 +15,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 //    connect(ui->comboBox, SIGNAL(editTextChanged(const QString &)),
 //            this, SLOT(updates_tips(const QString &)));
     open_dict();
-//    test();
 }
 
 MainWindow::~MainWindow() {
